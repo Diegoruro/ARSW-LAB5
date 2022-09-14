@@ -1,0 +1,24 @@
+Integrantes
+- Juan Felipe Aguas Pulido
+- Diego Fernando Ruiz Rojas
+
+Parte 3:
+- Qué condiciones de carrera se podrían presentar?
+
+Las condiciones de carrera que se pueden presentar están basadas en que un blueprint sea usado al mismo tiempo por dos peticiones,
+estas pueden hacer que el servidor presente fallas debido a que se genera una inconsistencia en la información.
+
+Los casos en los que pueden ocurrir las condiciones de carrera son:
+* Al modificar y consultar el mismo blueprint
+* Al crear y consultar el mismo blueprint
+
+En estas situaciones los errores pueden ocurrir en peticiones concurrentes.
+
+- Cuales son las respectivas regiones críticas?
+
+Las regiones criticas son el CRUD de los blueprints, especificamente por medio de los servicios ofrecidos para los verbos HTTP
+ya que estos son los únicos que consultan y modifican la información persistida.
+
+- SOLUCION
+Para solucionar el problema, en la persistencia hacemos que la clase pueda soportar transacciones concurrentes por medio de una
+estructura de datos que soporte peticiones concurrentes haciendo que se eliminen los riesgos al hacer peticiones concurrentes.

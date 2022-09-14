@@ -2,6 +2,7 @@
 
 ### Arquitecturas de Software
 
+### Juan Aguas - Diego Ruiz
 
 
 #### API REST para la gestión de planos.
