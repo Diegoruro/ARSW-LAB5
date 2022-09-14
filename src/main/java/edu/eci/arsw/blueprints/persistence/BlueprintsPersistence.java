@@ -35,5 +35,7 @@ public interface BlueprintsPersistence {
     public Set<Blueprint> getBlueprintsByAuthor(String author) throws BlueprintNotFoundException;
 
     public Set<Blueprint> getBlueprints();
-    
+
+
+    public void editBlueprint(String author, String name, Blueprint blueprint) throws Exception;
 }

@@ -68,8 +68,19 @@ public class BlueprintsServices {
             return blueprints;
         }catch (Exception ex){
             ex.printStackTrace();
+            throw new BlueprintNotFoundException("Author not found");
         }
-        throw new BlueprintNotFoundException("Author not found");
     }
-    
+
+    public void editBlueprint(String author, String name, Blueprint blueprint) throws BlueprintNotFoundException {
+        try {
+            System.out.println(author);
+            System.out.println(name);
+            System.out.println(blueprint);
+            bpp.editBlueprint(author,name,blueprint);
+        }catch (Exception ex){
+            ex.printStackTrace();
+            throw new BlueprintNotFoundException("Author not found");
+        }
+    }
 }

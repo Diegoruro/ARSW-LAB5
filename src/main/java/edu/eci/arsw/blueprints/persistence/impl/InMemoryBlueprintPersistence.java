@@ -73,5 +73,17 @@ public class InMemoryBlueprintPersistence implements BlueprintsPersistence{
         return new HashSet<>(blueprints.values());
     }
 
+    @Override
+    public void editBlueprint(String author, String name, Blueprint blueprint) throws Exception {
+        try {
+            if (blueprints.get(new Tuple<>(author, name))==null){
+                throw new Exception("Author or blueprint does not exist");
+            }
+            blueprints.put(new Tuple<>(author, name),blueprint);
+        }catch (Exception ex){
+            throw new Exception("not found",ex);
+        }
+    }
+
 
 }

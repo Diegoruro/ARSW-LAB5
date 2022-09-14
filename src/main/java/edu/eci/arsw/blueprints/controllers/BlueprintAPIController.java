@@ -10,6 +10,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import edu.eci.arsw.blueprints.model.Blueprint;
 import edu.eci.arsw.blueprints.persistence.BlueprintNotFoundException;
 import edu.eci.arsw.blueprints.services.BlueprintsServices;
@@ -52,6 +53,30 @@ public class BlueprintAPIController {
         try {
             Blueprint data = blueprintsServices.getBlueprint(author,name);
             return new ResponseEntity<>(new Gson().toJson(data), HttpStatus.ACCEPTED);
+        } catch (Exception ex) {
+            Logger.getLogger(BlueprintAPIController.class.getName()).log(Level.SEVERE, null, ex);
+            return new ResponseEntity<>("Error bla bla bla", HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @RequestMapping(method = RequestMethod.POST)
+    public ResponseEntity<?> postBlueprint(@RequestBody String postObject){
+        try {
+            Blueprint blueprint = new Gson().fromJson(postObject, Blueprint.class);
+            blueprintsServices.addNewBlueprint(blueprint);
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        } catch (Exception ex) {
+            Logger.getLogger(BlueprintAPIController.class.getName()).log(Level.SEVERE, null, ex);
+            return new ResponseEntity<>("Error bla bla bla",HttpStatus.FORBIDDEN);
+        }
+
+    }
+    @RequestMapping(path = "/{author}/{name}",method = RequestMethod.PUT)
+    public ResponseEntity<?> putBlueprint(@PathVariable String author,@PathVariable String name, @RequestBody String putObject) {
+        try {
+            Blueprint blueprint = new Gson().fromJson(putObject, Blueprint.class);
+            blueprintsServices.editBlueprint(author,name,blueprint);
+            return new ResponseEntity<>(HttpStatus.CREATED);
         } catch (Exception ex) {
             Logger.getLogger(BlueprintAPIController.class.getName()).log(Level.SEVERE, null, ex);
             return new ResponseEntity<>("Error bla bla bla", HttpStatus.NOT_FOUND);
